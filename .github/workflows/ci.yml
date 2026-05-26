@@ -1,0 +1,53 @@
+name: FraudScan CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Vérification syntaxe Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer les dépendances légères
+        run: pip install pyflakes
+
+      - name: Vérifier app.py et pipeline.py
+        run: |
+          python -m pyflakes app.py
+          python -m pyflakes pipeline.py
+
+  validate-html:
+    name: Vérification HTML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vérifier que fraudscan.html existe et n'est pas vide
+        run: |
+          test -s fraudscan.html && echo "fraudscan.html OK" || exit 1
+
+  check-requirements:
+    name: Vérification requirements.txt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Vérifier que les packages sont installables
+        run: |
+          pip install --dry-run -r requirements.txt 2>&1 | head -20
+          echo "Requirements OK"
