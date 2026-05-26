@@ -1,0 +1,9 @@
+{
+  "auc_roc": 0.7748,
+  "average_precision": 0.5864,
+  "f1": 0.3645,
+  "precision": 0.6316,
+  "recall": 0.2562,
+  "precision_at_20": 1.0,
+  "precision_at_100": 0.72
+}

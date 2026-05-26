@@ -1,0 +1,20 @@
+# Vector store (régénéré par le notebook)
+vector_store/
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+
+# Environnement
+.env
+*.env
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Artifacts lourds (optionnel)
+# artifacts/

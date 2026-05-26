@@ -1,0 +1,24 @@
+# Pipeline RAG + scoring hybride
+# Versions épinglées — compatibles numpy 1.26.4 / torch 2.2.2
+sentence-transformers==2.7.0
+transformers>=4.41,<5
+chromadb==1.5.9
+
+# LLM via Anthropic Claude
+anthropic>=0.40.0
+
+# Data
+pandas==3.0.3
+numpy==1.26.4
+
+# Machine Learning / évaluation
+scikit-learn==1.8.0
+
+# API REST
+fastapi==0.136.1
+uvicorn[standard]==0.46.0
+pydantic==2.13.4
+
+# Utilitaires
+python-dotenv==1.2.2
+tqdm==4.67.3

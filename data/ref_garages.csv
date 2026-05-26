@@ -1,0 +1,51 @@
+garage_id,name,region,accreditation,sra_certified,n_claims_historique,fraud_score_init,active
+GAR_0001,Joseph Schneider SA Auto,Grand Est,Agréé,True,72,0.052,True
+GAR_0002,Bodin Le Goff S.A. Auto,Occitanie,Conventionné,False,260,0.051,True
+GAR_0003,Auger Auto,Centre-Val de Loire,Agréé,True,117,0.063,True
+GAR_0004,David S.A.R.L. Auto,Occitanie,Agréé,True,74,0.189,True
+GAR_0005,Fleury Auto,Hauts-de-France,Agréé partenaire,True,58,0.073,True
+GAR_0006,Hervé Auto,Pays de la Loire,Conventionné,False,358,0.02,True
+GAR_0007,Valette Auto,Grand Est,Agréé,True,62,0.035,True
+GAR_0008,Moulin Auto,Bourgogne-Franche-Comté,Agréé,True,390,0.146,True
+GAR_0009,Ferreira S.A.S. Auto,Île-de-France,Agréé partenaire,True,278,0.055,True
+GAR_0010,Boucher S.A. Auto,Bourgogne-Franche-Comté,Agréé,True,329,0.182,True
+GAR_0011,Marty Auto,Auvergne-Rhône-Alpes,Agréé,True,257,0.095,True
+GAR_0012,Meunier Auto,Auvergne-Rhône-Alpes,Agréé,True,15,0.052,True
+GAR_0013,Breton S.A. Auto,Bretagne,Non agréé,False,110,0.095,True
+GAR_0014,Bouchet Auto,Auvergne-Rhône-Alpes,Agréé partenaire,True,47,0.155,True
+GAR_0015,Payet Auto,Grand Est,Agréé,True,261,0.133,True
+GAR_0016,Le Roux Auto,Occitanie,Agréé,True,186,0.05,False
+GAR_0017,Voisin S.A.S. Auto,Bourgogne-Franche-Comté,Agréé partenaire,True,22,0.066,True
+GAR_0018,Dias Auto,Grand Est,Agréé,True,88,0.121,True
+GAR_0019,Devaux Auto,Centre-Val de Loire,Agréé,True,203,0.206,True
+GAR_0020,Leroy Auto,Pays de la Loire,Agréé,True,328,0.077,True
+GAR_0021,Dupont Rolland et Fils Auto,Grand Est,Non agréé,False,352,0.085,True
+GAR_0022,Roy Rivière S.A. Auto,Île-de-France,Agréé,True,49,0.051,True
+GAR_0023,Leduc SA Auto,Grand Est,Agréé,True,152,0.128,True
+GAR_0024,Loiseau et Fils Auto,Nouvelle-Aquitaine,Agréé,True,192,0.284,True
+GAR_0025,Vaillant Auto,Bretagne,Non agréé,False,382,0.192,True
+GAR_0026,Legros Auto,Bourgogne-Franche-Comté,Agréé,True,99,0.183,True
+GAR_0027,Allain Diallo S.A.S. Auto,Provence-Alpes-Côte d'Azur,Agréé,True,34,0.13,True
+GAR_0028,Gimenez Georges S.A.S. Auto,Occitanie,Agréé,True,207,0.048,False
+GAR_0029,Leroux Auto,Occitanie,Agréé,True,206,0.661,True
+GAR_0030,Renaud Auto,Normandie,Agréé,True,320,0.308,True
+GAR_0031,Deschamps S.A. Auto,Grand Est,Conventionné,False,119,0.13,True
+GAR_0032,Duhamel Auto,Auvergne-Rhône-Alpes,Agréé,True,359,0.038,True
+GAR_0033,Lejeune Auto,Île-de-France,Non agréé,False,391,0.249,True
+GAR_0034,Verdier Marie S.A.R.L. Auto,Normandie,Agréé partenaire,True,342,0.03,True
+GAR_0035,Ruiz Auto,Occitanie,Agréé,True,210,0.115,True
+GAR_0036,Noël Auto,Hauts-de-France,Agréé,True,206,0.266,True
+GAR_0037,Petit Auto,Bourgogne-Franche-Comté,Agréé,True,203,0.162,True
+GAR_0038,Leclercq Samson S.A. Auto,Provence-Alpes-Côte d'Azur,Conventionné,False,167,0.05,True
+GAR_0039,Georges SA Auto,Provence-Alpes-Côte d'Azur,Agréé partenaire,True,261,0.147,True
+GAR_0040,Breton SA Auto,Nouvelle-Aquitaine,Non agréé,False,75,0.548,True
+GAR_0041,Colin S.A.S. Auto,Île-de-France,Agréé,True,195,0.418,True
+GAR_0042,Langlois Auto,Nouvelle-Aquitaine,Agréé,True,75,0.194,True
+GAR_0043,Pottier Auto,Nouvelle-Aquitaine,Agréé partenaire,True,153,0.279,True
+GAR_0044,Gérard SA Auto,Pays de la Loire,Agréé partenaire,True,11,0.121,True
+GAR_0045,Bazin Leroux et Fils Auto,Grand Est,Agréé,True,339,0.165,True
+GAR_0046,Perez et Fils Auto,Normandie,Non agréé,False,33,0.071,True
+GAR_0047,Alves Auto,Île-de-France,Conventionné,False,280,0.267,True
+GAR_0048,Poulain Auto,Grand Est,Agréé partenaire,True,184,0.379,True
+GAR_0049,Mercier Auto,Île-de-France,Agréé,True,396,0.201,True
+GAR_0050,Baron Auto,Hauts-de-France,Agréé,True,118,0.256,True

@@ -1,0 +1,21 @@
+expert_id,full_name,certification,tribunal_list,years_experience,n_mandates,fraud_score_init,active
+EXP_001,Zoé de la Delmas,Certifié CE,True,5,248,0.074,True
+EXP_002,Antoine Royer,Certifié national,True,6,121,0.266,True
+EXP_003,Patricia Payet,Non certifié,False,26,324,0.2,True
+EXP_004,Margaud Delahaye,Agréé compagnie,False,6,492,0.035,False
+EXP_005,Benoît Hamon,Certifié CE,True,3,163,0.111,True
+EXP_006,Luc Bazin,Certifié national,True,2,124,0.301,True
+EXP_007,Sophie-Jeannine Baron,Certifié national,True,25,166,0.051,True
+EXP_008,André Rolland,Non certifié,False,19,210,0.31,True
+EXP_009,Andrée Leduc,Certifié national,True,27,545,0.096,True
+EXP_010,Marianne Klein-Guyon,Certifié national,True,31,211,0.144,True
+EXP_011,Élisabeth Renaud-Richard,Certifié national,True,32,668,0.047,True
+EXP_012,Michelle-Claude Teixeira,Certifié CE,True,12,502,0.147,True
+EXP_013,Georges Lagarde,Certifié national,True,15,799,0.283,True
+EXP_014,Gabrielle Chauvin-Joubert,Certifié national,True,28,312,0.134,True
+EXP_015,Marcel Girard,Certifié CE,True,29,120,0.172,True
+EXP_016,Gilles Daniel,Certifié national,True,28,233,0.121,True
+EXP_017,Colette Rolland,Certifié national,True,13,453,0.189,True
+EXP_018,Luc Vallée,Certifié national,True,34,723,0.357,True
+EXP_019,Grégoire Traore,Non certifié,False,33,214,0.034,True
+EXP_020,Marianne Charrier-Fischer,Certifié national,True,6,782,0.114,True
