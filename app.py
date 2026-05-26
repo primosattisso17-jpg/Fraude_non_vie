@@ -2,10 +2,10 @@
 # Lancement : uvicorn app:app --reload --port 8000
 # Documentation Swagger auto : http://localhost:8000/docs
 
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-from typing import Optional, List
+from typing import List
 import uvicorn, time
 
 from pipeline import hybrid_score, run_fraud_agent, run_agent_with_retry, LLM_MODEL, collection
