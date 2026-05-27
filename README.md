@@ -12,7 +12,7 @@ La fraude à l'assurance auto représente plusieurs milliards d'euros de pertes 
 
 - **RAG sémantique** : recherche des sinistres historiques les plus similaires via embeddings vectoriels
 - **Score réseau** : règles métier sur garages, experts, AGIRA et blacklist
-- **Agent LLM** : analyse experte générée par LLaMA 3.3 70B (Groq)
+- **Agent LLM** : analyse experte générée par Claude Haiku 4.5 (Anthropic)
 - **Juge LLM** : validation automatique de la qualité des analyses avec boucle de correction
 
 ---
@@ -47,6 +47,9 @@ Sinistre entrant
       │
       ▼
 [Module 12] API FastAPI — /score · /analyze · /analyze_with_judge
+      │
+      ▼
+[Module 13] Interface web FraudScan (fraudscan.html)
 ```
 
 ---
@@ -57,7 +60,7 @@ Sinistre entrant
 |---|---|
 | Embeddings | `sentence-transformers` · `all-MiniLM-L6-v2` (384 dims, CPU local) |
 | Vector store | `chromadb` PersistentClient · HNSW · distance cosine · k=5 |
-| LLM | `llama-3.3-70b-versatile` via Groq (SDK OpenAI, `base_url` redirigé) |
+| LLM | `claude-haiku-4-5-20251001` via Anthropic SDK |
 | Data | `pandas`, `numpy`, `faker` (locale fr_FR) |
 | Évaluation | `scikit-learn` (AUC-ROC, F1, Precision, Recall) + LLM-as-a-Judge |
 | API | `FastAPI` + `uvicorn` |
@@ -69,7 +72,7 @@ Sinistre entrant
 
 ```
 .
-├── Notebook_Final_v2.ipynb      # Notebook principal (13 modules)
+├── Notebook_Final.ipynb         # Notebook principal (13 modules)
 ├── app.py                       # API REST FastAPI (3 endpoints)
 ├── pipeline.py                  # Module pipeline : RAG, scoring, agents LLM
 ├── fraudscan.html               # Interface démo interactive (Module 13)
@@ -101,9 +104,9 @@ Sinistre entrant
     └── fraud_network.gexf       # Graphe réseau (Gephi)
 
 # Non versionnés (générés automatiquement) :
-# data/claims_10k.json    ← Module 1
+# data/claims_10k.json     ← Module 1
 # data/documents_10k.jsonl ← Module 3
-# vector_store/            ← Module 3 (ChromaDB, ~60 MB)
+# vector_store/             ← Module 3 (ChromaDB, ~60 MB)
 ```
 
 ---
@@ -113,8 +116,8 @@ Sinistre entrant
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://forge.univ-lyon1.fr/p2408012/fraude_auto_rag.git
-cd fraude_auto_rag
+git clone https://github.com/primosattisso17-jpg/Fraude_non_vie.git
+cd Fraude_non_vie
 ```
 
 ### 2. Créer l'environnement Python 3.11
@@ -128,37 +131,38 @@ source .venv/bin/activate        # macOS / Linux
 ### 3. Installer les dépendances
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-### 4. Configurer la clé Groq
+### 4. Configurer la clé Anthropic
 
-Créer un fichier `.env` à la racine (jamais commité) :
+Exporter directement dans le terminal :
 
 ```bash
-echo "GROQ_API_KEY=gsk_..." > .env
+export ANTHROPIC_API_KEY="sk-ant-..."
 ```
 
-Ou exporter directement :
+Ou créer un fichier `.env` à la racine (jamais commité) :
 
 ```bash
-export GROQ_API_KEY="gsk_..."
+echo "ANTHROPIC_API_KEY=sk-ant-..." > .env
 ```
 
-Obtenir une clé gratuite sur [console.groq.com](https://console.groq.com).
+Obtenir une clé sur [console.anthropic.com](https://console.anthropic.com).
 
 ---
 
 ## Exécution du notebook
 
 ```bash
-jupyter notebook Notebook_Final_v2.ipynb
+jupyter notebook Notebook_Final.ipynb
 ```
 
 **Ordre d'exécution recommandé :**
 
 | Module | Contenu | Fichiers générés |
 |---|---|---|
+| 0 | Setup, configuration, test connexion Claude | — |
 | 1 | Génération des données synthétiques | `data/claims_10k.csv`, `data/claims_10k.json`, `data/ref_*.csv` |
 | 2 | Analyse exploratoire (EDA) | `artifacts/eda_production.png`, `artifacts/saisonnalite_prod.png` |
 | 3 | Construction de l'index RAG | `data/documents_10k.jsonl`, `vector_store/` |
@@ -169,7 +173,7 @@ jupyter notebook Notebook_Final_v2.ipynb
 | 12 | API FastAPI | `app.py` |
 | 13 | Interface HTML démo interactive | `fraudscan.html` |
 
-> **Note :** si `data/claims_10k.csv` et `data/ref_*.csv` sont déjà présents (cas GitLab),  
+> **Note :** si `data/claims_10k.csv` et `data/ref_*.csv` sont déjà présents,  
 > vous pouvez démarrer directement au **Module 3** pour reconstruire l'index vectoriel.
 
 ---
@@ -177,11 +181,9 @@ jupyter notebook Notebook_Final_v2.ipynb
 ## Lancer l'API
 
 ```bash
-export GROQ_API_KEY="gsk_..."
-.venv/bin/python -m uvicorn app:app --port 8000
+export ANTHROPIC_API_KEY="sk-ant-..."
+python -m uvicorn app:app --reload --port 8000
 ```
-
-> **Note :** ne pas utiliser `--reload` — il surveille le dossier `.venv` et provoque une boucle de redémarrage.
 
 Documentation interactive Swagger : [http://localhost:8000/docs](http://localhost:8000/docs)
 
@@ -191,9 +193,8 @@ Documentation interactive Swagger : [http://localhost:8000/docs](http://localhos
 |---|---|---|
 | `GET /health` | Statut du service | < 50 ms |
 | `POST /score` | Score hybride RAG + réseau, sans LLM | ~200 ms |
-| `POST /analyze` | Score + analyse Agent Expert LLM (Groq) | ~2–4 s |
+| `POST /analyze` | Score + analyse Agent Expert Claude Haiku 4.5 | ~2–4 s |
 | `POST /analyze_with_judge` | Score + Expert + validation Juge | ~5–8 s |
-| `POST /proxy/anthropic` | Proxy CORS vers Anthropic API (utilisé par fraudscan.html) | ~2–4 s |
 
 ### Exemple de requête
 
@@ -232,53 +233,31 @@ curl -X POST http://localhost:8000/score \
 
 ## Interface démo — FraudScan HTML (Module 13)
 
-`fraudscan.html` est une interface web interactive affichant le pipeline complet sans quitter le navigateur.
-
-### Utilisation dans le notebook (recommandé)
-
-```python
-# Cellule 94 du notebook — affiche l'interface inline dans Jupyter
-display_fraudscan()
-```
+`fraudscan.html` est une interface web professionnelle deux panneaux affichant le pipeline complet en temps réel.
 
 ### Utilisation standalone
 
-Servir le fichier via un serveur HTTP local (obligatoire pour éviter les restrictions CORS du navigateur) :
-
 ```bash
-# Terminal 1 — serveur HTTP
-python3 -m http.server 3000
+# Terminal 1 — API FastAPI (obligatoire)
+export ANTHROPIC_API_KEY="sk-ant-..."
+python -m uvicorn app:app --reload --port 8000
 
-# Terminal 2 — API FastAPI
-export GROQ_API_KEY="gsk_..."
-.venv/bin/python -m uvicorn app:app --port 8000
+# Terminal 2 — ouvrir l'interface
+open fraudscan.html   # macOS
 ```
 
-Ouvrir dans le navigateur : `http://localhost:3000/fraudscan.html`
+Ou dans le notebook (Module 13) :
 
-### Prérequis
-
-1. Les deux serveurs ci-dessus doivent tourner.
-2. Dans la console DevTools du navigateur (**F12**) :
-   ```js
-   window.ANTHROPIC_API_KEY = "sk-ant-api03-..."
-   ```
-   *(à refaire à chaque rechargement de page)*
+```python
+display_fraudscan()
+```
 
 ### Fonctionnement
 
 | Étape | Appel | Résultat |
 |---|---|---|
-| 1 | `POST http://localhost:8000/score` | Jauge score final, voisins RAG, scores RAG/réseau |
-| 2 | `POST http://localhost:8000/proxy/anthropic` → `api.anthropic.com` | Analyse Expert Claude Haiku : motifs, signaux, recommandation |
-
-> **Note :** l'appel Anthropic transite par le proxy FastAPI pour éviter les blocages CORS du navigateur.
-
-### Prévisualisation en ligne (GitLab Pages)
-
-`https://p2408012.pages.univ-lyon1.fr/fraude_auto_rag/`
-
-> **Note :** en ligne, le scoring RAG et l'analyse LLM nécessitent tous les deux l'API locale (`localhost:8000`).
+| 1 | `POST http://localhost:8000/score` | Jauge score final, voisins RAG, scores RAG/réseau (~200 ms) |
+| 2 | `POST http://localhost:8000/analyze` | Analyse Expert Claude Haiku 4.5 : motifs, signaux, recommandation (~2–4 s) |
 
 ---
 
@@ -305,7 +284,7 @@ Ouvrir dans le navigateur : `http://localhost:3000/fraudscan.html`
 
 - Toutes les données sont générées avec `random_state=42` (reproductibles).
 - Les embeddings sont recalculés localement (aucune dépendance externe, CPU uniquement).
-- Le seul élément non déterministe est la sortie du LLM Groq (`temperature=0.2`).
+- Le seul élément non déterministe est la sortie du LLM Claude (`temperature=0.2`).
 - Le `COST_TRACKER` enregistre chaque appel LLM : appeler `afficher_bilan()` pour le résumé des tokens et coûts.
 
 ---
@@ -314,6 +293,6 @@ Ouvrir dans le navigateur : `http://localhost:3000/fraudscan.html`
 
 - **Données synthétiques** : le taux de fraude (~30 %) est volontairement élevé pour les besoins pédagogiques ; en réalité il est de 6–8 %.
 - **Scalabilité** : ChromaDB en mode local n'est pas adapté à des millions de sinistres ; une migration vers un serveur ChromaDB ou Qdrant serait nécessaire.
-- **Coût LLM** : Groq est gratuit avec des limites de débit ; en production, prévoir un budget API ou un modèle local (Ollama).
+- **Coût LLM** : Claude Haiku 4.5 est facturé ~$0,80/M tokens input · ~$4,00/M tokens output ; en production, prévoir un budget API ou un modèle local (Ollama).
 - **Latence** : l'endpoint `/analyze_with_judge` (~5–8 s) n'est pas adapté à un usage temps réel ; à réserver aux cas à risque élevé.
-- **Sécurité** : la clé API Groq ne doit jamais être versionnée ; utiliser des variables d'environnement ou un gestionnaire de secrets.
+- **Sécurité** : la clé `ANTHROPIC_API_KEY` ne doit jamais être versionnée ; utiliser des variables d'environnement ou un gestionnaire de secrets.
